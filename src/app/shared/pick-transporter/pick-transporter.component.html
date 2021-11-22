@@ -1,0 +1,111 @@
+<div class="vendor-container">
+  <div class="vendor-search">
+    <div style="width:60%;display: flex" *ngIf="vandorBy == 'all'">
+      <input
+        type="text"
+        placeholder="Search Vendor"
+        class="vendor-input"
+        [(ngModel)]="searchKey"
+        (keyup)="searchAll($event)"
+        style="width: 90%;"
+      />
+      <button
+        *ngIf="!searchKey && !isSpinner"
+        mat-icon-button
+        style="margin-left: -2rem;color:#5A6872;"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-spinner *ngIf="isSpinner" mode="indeterminate" [strokeWidth]="3" [diameter]="23" style="margin-left: -2rem;margin-top: 4px;"></mat-spinner>
+      <button
+        *ngIf="searchKey && !isSpinner"
+        mat-icon-button
+        (click)="search='';searchKey='';getVendors()"
+        style="margin-left: -2rem;color:#5A6872;"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div style="width:60%" *ngIf="vandorBy !== 'all'">
+      <input
+        type="text"
+        placeholder="Search Vendor"
+        class="vendor-input"
+        [(ngModel)]="search"
+        style="width: 90%;"
+      />
+      <button
+        *ngIf="!search"
+        mat-icon-button
+        style="margin-left: -2rem;color:#5A6872;"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+      <button
+        *ngIf="search"
+        mat-icon-button
+        (click)="search = ''"
+        style="margin-left: -2rem;color:#5A6872;"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div  style="width: 35%;">
+      <mat-select placeholder="Placeholder" [(ngModel)]="vandorBy" (selectionChange)="search='';searchKey='';getVendors()" name="item" class="view-by">
+        <mat-option [value]="'all'">All</mat-option>
+        <mat-option [value]="'vandors on this lane'">Prefered Vendors</mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div class="vendor-item">
+    <mat-checkbox
+      class="custom-checkbox"
+      [checked]="
+        vendors.length == selectedVendors.length && selectedVendors.length > 0
+      "
+      [style.pointer-events]="vendors.length > 0 ? 'all' : 'none'"
+      (change)="selectAll($event)"
+      *ngIf="multiple"
+    ></mat-checkbox>
+    <span style="margin-left: 15px;color:#152935;font-weight: 500;flex: 2"
+      >Vendors</span
+    >
+    <span style="margin-left: 15px;color:#152935;font-weight: 500;flex: 1"
+      >Status</span
+    >
+    <span style="margin-left: 15px;color:#152935;font-weight: 500;flex: 1"
+      >City</span
+    >
+    <span style="margin-left: 15px;color:#152935;font-weight: 500;flex: 1"
+    >Code</span
+    >
+  </div>
+  <div class="vendor-list-container custom-scroll">
+    <div
+      *ngFor="let item of vendors | searchBy: ['name', search]"
+      class="vendor-item"
+      [style.background-color]="!multiple && selectedVendors.includes(item?.uuid) ?'#F7F7F7':(selectedItem?.uuid === item?.uuid)?'aliceblue':'white'"
+      [style.pointer-events]="!multiple && selectedVendors.includes(item?.uuid)?'none':'all'"
+      (click)="selectVendor(item)"
+    >
+      <mat-checkbox
+        class="custom-checkbox"
+        [checked]="selectedVendors.includes(item?.uuid)"
+        *ngIf="multiple"
+        style="pointer-events: none"
+      ></mat-checkbox>
+      <span style="margin-left: 15px;display: flex;align-items: center;flex: 2">{{ item?.name }}<mat-icon *ngIf="item?.isPrimary" style="font-size: 12px;height: 18px;width: 14px;color: #f1881f;">star</mat-icon></span>
+      <span style="margin-left: 15px;flex: 1">{{ item?.status }}</span>
+      <span style="margin-left: 15px;flex: 1;display: block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{ item?.places?item?.places[0]?.name:'NA' }}</span>
+      <span style="margin-left: 15px;flex: 1;display: block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">{{ item?.externalId?item?.externalId:'NA' }}</span>
+    </div>
+  </div>
+</div>
+<div *ngIf="vandorBy !== 'all'" style="display: flex">
+  <mat-checkbox 
+  style="padding: 10px;"
+  class="custom-checkbox"
+  (change)="filterPrimary($event)"
+  
+  >Primary Only</mat-checkbox>
+</div>

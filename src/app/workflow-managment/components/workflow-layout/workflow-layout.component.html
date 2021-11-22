@@ -1,0 +1,45 @@
+<!-- <div class="df ai"> -->
+<!-- <span>Layout</span> -->
+<button mat-icon-button (click)="close()"><mat-icon>clear</mat-icon></button>
+<button mat-button (click)="editor = true">editor</button>
+<button mat-button (click)="refresh()">refresh</button>
+<!-- </div> -->
+<div class="container" #pdiv >
+  <mat-card *ngFor="let item of items; let index = index"
+  style="padding: 10px;position: absolute;"
+  [style.width]="(totalWidth && item?.layout?.width)?((item?.layout?.width * totalWidth)-30 + 'px'):''"
+  [style.left]="((item.layout.xPosition * totalWidth)+'px')"
+  [style.top]="(item.layout.yPosition+'px')"
+  >
+    <workflow-priview
+    [workflow]="item.workflow"
+    ></workflow-priview>
+    <!-- [showActions]="false" -->
+  </mat-card>
+  <!-- <div
+    *ngFor="let item of items; let index = index"
+    [style.grid-column]="item.layout | gridArea:[totalWidth]"
+  >
+     <mat-card>
+       
+     </mat-card>
+  </div> -->
+</div>
+<!-- height: (index + 1) * 20 + 'px', ,'background-color': item?.layout?.color-->
+
+<div class="mycustomDialog" *ngIf="editor">
+  <div class="modal-content" style="margin:20px 10%">
+    <button mat-icon-button style="margin-left: auto" (click)="editor=false">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <form>
+      <ngx-ace-editor
+        [mode]="'json'"
+        [options]="{ wrap: true }"
+        [(text)]="text"
+        style="font-family: monospace; font-size: 12px !important; height: calc(100vh - 16rem) !important; "
+      >
+      </ngx-ace-editor>
+    </form>
+  </div>
+</div>

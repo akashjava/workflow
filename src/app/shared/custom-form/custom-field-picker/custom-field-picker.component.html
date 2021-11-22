@@ -1,0 +1,14 @@
+<button mat-button class="df ai pc" style="border: 1px solid #0086da;" [matMenuTriggerFor]="manu">
+  <mat-icon>add_circle</mat-icon>
+  <span style="margin-left: 10px;">Add Another Field</span>
+</button>
+
+<mat-menu #manu="matMenu">
+  <div style="width: fit-content;background-color: #FFFFFF;border-radius: 5px;">
+    <div style="padding:0.5rem">
+      <div *ngFor="let item of items" class="item-button" (click)="onItemClick(item)">
+        {{ item.view }}
+      </div>
+    </div>
+  </div>
+</mat-menu>

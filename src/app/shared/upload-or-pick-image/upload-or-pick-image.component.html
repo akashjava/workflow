@@ -1,0 +1,23 @@
+<span *ngIf="!(appService.getView() | async)" class="action" (click)="showWebcam=true">+ {{placeholder}}</span>
+<span *ngIf="(appService.getView() | async)" [matMenuTriggerFor]="dot" class="action">+ {{placeholder}}</span>
+<mat-menu #dot="matMenu">
+  <div class="menu-options">
+    <span (click)="showWebcam=true">
+      <mat-icon>camera_alt</mat-icon>Camera
+    </span>
+    <span (click)="triggerFileInput()">
+      <mat-icon>attachment</mat-icon>Choose File
+    </span>
+  </div>
+</mat-menu>
+<div *ngIf="showWebcam" class="mycustomDialog" style="overflow: hidden;">
+  <div class="modal-content modal-content-override" style="border-radius: 0px;text-align: center;">
+    <div style="text-align: center;" [style.padding]="(appService.getView() | async)?'16px':''">
+      <mat-icon style="float:right;cursor: pointer;" (click)="showWebcam = false">clear</mat-icon>
+      <webcam [mirrorImage]="'always'" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+    </div>
+    <br />
+    <button style="width: fit-content" (click)="triggerSnapshot()">Click to Take A Snapshot</button>
+  </div>
+</div>
+<input #file type="file" style="display: none;" accept=".png, .jpg, .jpeg" (change)="chooseFile($event.target.files)" />

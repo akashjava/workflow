@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ workflow?.name }}</mat-label>
+  <input
+    matInput
+    [placeholder]="workflow?.name"
+    [owlDateTime]="date"
+    [owlDateTimeTrigger]="date"
+    (dateTimeChange)="dateEvent($event)"
+    (input)="date.open()"
+  />
+  <img matSuffix src="assets/Icons/calendar.svg" [owlDateTimeTrigger]="date" style="height: 24px;"/>
+  <owl-date-time #date [pickerType]="'both'"></owl-date-time>
+</mat-form-field>

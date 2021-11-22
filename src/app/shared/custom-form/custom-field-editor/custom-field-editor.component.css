@@ -1,0 +1,161 @@
+.instruct {
+  padding: 1rem;
+  text-align: center;
+  font-size: 16px;
+  background-color: aliceblue;
+  border: 1px dashed lightblue;
+  color: rgba(0, 0, 0, 0.54);
+}
+.custom-checkbox >>> .mat-checkbox-inner-container {
+  width: 1rem;
+  height: 1rem;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate,
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate {
+  background-color: #0086da !important; /* blue background for example */
+}
+::ng-deep .mat-checkbox-frame {
+  border-color: rgba(
+    90,
+    104,
+    114,
+    0.2
+  ) !important; /* grey border color for example */
+}
+
+.form-item {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  /* background-color: #F5FFF3; */
+  border: 1px solid rgba(169, 177, 186, 0.21);
+  box-sizing: border-box;
+  border-radius: 5px;
+  position: relative;
+  width: 100%;
+}
+/* .form-item .mat-icon{
+      cursor: pointer;
+      position: absolute;
+      right: 0.4rem;
+      z-index: 2;
+  } */
+
+::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #0086da;
+  height: 18px;
+  width: 18px;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #0086da;
+  height: 18px;
+  width: 18px;
+}
+
+::ng-deep .mat-radio-container .mat-radio-outer-circle {
+  height: 18px;
+  width: 18px;
+}
+
+.builder-field {
+  width: calc(100% - 35px);
+  height: 3.3rem;
+  border: 1px dashed #0086da;
+  padding: 0rem 1rem;
+  border-radius: 3px;
+  background-color: #f7f9fa;
+}
+.up-down-arrow {
+  border: 1px solid rgba(169, 177, 186, 0.21);
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+  font-size: 22px;
+  height: 20px;
+  width: 22px;
+  background-color: #f5fff3;
+  cursor: pointer;
+}
+.remove-icon {
+  margin-top: 1rem;
+  border: 1px solid rgba(169, 177, 186, 0.21);
+  border-radius: 0px 5px 5px 0px;
+  border-left: none;
+  font-size: 18px;
+  height: 20px;
+  width: 22px;
+  background-color: #f5fff3;
+  color: red;
+  cursor: pointer;
+}
+.description {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  border: 0.75px dashed #8c9ba5;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: #f8fafb;
+  font-size: 12px;
+  color: #8c9ba5;
+}
+.description input {
+  outline: none;
+  border: none;
+  background-color: inherit;
+  padding: 0.3rem 0.5rem;
+}
+.add-options {
+  background: #f7f9fa;
+  border: 0.75px dashed #0086da;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 0.3rem;
+  color: #0086da;
+  cursor: pointer;
+}
+
+.tab-btn {
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  padding: 0px 5px;
+  flex: 1;
+  white-space: nowrap;
+  text-align: center;
+  color: #808080;
+  border-bottom: 2px solid transparent;
+}
+
+.clicked-tab {
+  border-bottom-color: #0086da;
+  color: #0086da;
+}
+
+.main-container {
+  margin-top: 8px;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.tab-container {
+  margin-left: 0px;
+  min-width: 300px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: margin-left 300ms ease-out, transform 300ms ease-out;
+}
+
+.slide-tab {
+  margin-left: -300px;
+}
+
+.role-input {
+  width: 100%;
+  font-size: 14px;
+}

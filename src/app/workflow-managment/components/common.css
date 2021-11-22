@@ -1,0 +1,30 @@
+.btn {
+  background: #ffffff;
+  border: 1px solid #0086da;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.btn-txt {
+  font-weight: 500;
+  font-size: 16px;
+  color: #0086da;
+}
+
+.display-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.meta-heading {
+  font-weight: 500;
+  font-size: 16px;
+  color: #152935;
+}
+
+.action {
+  position: absolute;
+  bottom: 1rem;
+}

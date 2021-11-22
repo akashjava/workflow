@@ -1,0 +1,12 @@
+<div style="padding: 0.5rem 0.8rem;display: flex;width: inherit;">
+  <img class="org_logo default-flex-element" [src]="imgPath"
+  onerror="this.src='assets/images/fretron-logo.svg'" style="max-width:
+  22%;" />
+
+  <div style="padding:0.5rem;overflow: hidden;" class="default-flex-element">
+    <span class="org_headear">
+      {{ element?.organisationName ? element?.organisationName : "N/A" }}</span
+    >
+    <span class="org_id">{{ element?.orgId ? element?.orgId : "N/A" }}</span>
+  </div>
+</div>

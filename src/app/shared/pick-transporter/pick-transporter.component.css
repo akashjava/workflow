@@ -1,0 +1,64 @@
+.vendor-container{
+    border: 1px solid #E9E9E9;
+    border-radius: 2px;
+    margin-top: 10px;
+}
+.vendor-search{
+   border-bottom: 1px solid #E9E9E9;
+   display: flex;
+   /* align-items: center; */
+   padding: 8px 10px;
+}
+.vendor-input{
+  border: 1px solid #E6E6E6;
+  line-height: 20px;
+  /* flex: 1; */
+  color: #5A6872;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 4px;
+}
+.vendor-list-container{
+   min-height: 10rem;
+   max-height: 10rem;
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+.vendor-item{
+   display: flex;
+   align-items: center;
+   padding: 10px;
+   border-bottom: 1px solid #E9E9E9;
+   color: #5A6872;
+   font-size: 14px;
+   cursor: pointer;
+}
+.mat-icon-button{
+    padding: 0;
+    min-width: 0;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    line-height: 32px;
+    border-radius: 50%;
+}
+.mat-icon-button:hover{
+    background-color: rgb(218, 213, 213);
+}
+.view-by{
+    padding: 6px 10px;
+    border: 1px solid #0086DA;
+    border-radius: 4px;
+    color: #0086DA;
+    width: 100%
+}
+.view-by >>> .mat-select-arrow{
+    color: #0086DA !important;
+}
+.view-by >>> .mat-select-value-text{
+    color: #0086DA !important;
+}
+.view-by >>> .mat-option.mat-active {
+    color: #0086DA !important;
+}

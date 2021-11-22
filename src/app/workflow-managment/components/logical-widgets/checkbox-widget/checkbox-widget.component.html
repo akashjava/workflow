@@ -1,0 +1,6 @@
+<div class="layout">
+  <span class="title">{{ workflow?.name }}</span>
+  <div *ngFor="let option of workflow.options" style="padding: 0px 10px;width: 50%;">
+    <mat-checkbox >{{option}}</mat-checkbox>
+  </div>
+</div>

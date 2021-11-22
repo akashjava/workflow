@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="df ai body" style="margin-left: 20px;">
+    <input
+      matInput
+      type="text"
+      name="name"
+      [(ngModel)]="workflow.name"
+      placeholder="WFD Name"
+      autocomplete="false"
+    />
+    <span class="sf pc" *ngIf="workflow.type">{{
+      workflow.type | wfdFieldType
+    }}</span>
+    <span class="sf pc" *ngIf="workflow.logicalType"> &nbsp;&nbsp;({{
+      workflow.logicalType | wfdFieldType
+    }})&nbsp;&nbsp;</span>
+
+    <mat-icon
+      class="pc add-icon"
+      [matMenuTriggerFor]="feildType"
+      (click)="fieldFor = 'object'"
+      *ngIf="workflow.type == 'object' &&  !workflow.logicalType"
+      >add</mat-icon
+    >
+    <mat-icon
+      class="pc add-icon"
+      *ngIf="isChild && showActions"
+      (click)="removeEvent.emit()"
+      >delete</mat-icon
+    >
+    <button
+    style="margin-left: auto;"
+      mat-icon-button
+      *ngIf="workflow?.type == 'object' || workflow?.type == 'array'"
+      (click)="isExpand = !isExpand"
+    >
+      <mat-icon class="pc lf-24" [ngClass]="isExpand ? 'rotate0' : 'rotate180'">
+        keyboard_arrow_down
+      </mat-icon>
+    </button>
+  </div>
+  <div
+    class="df body"
+    style="margin-left: 40px;align-items: baseline;"
+    *ngIf="workflow.type == 'array' && isExpand"
+  >
+    <span class="sf pc df ai"
+      >TYPE :
+      <mat-icon
+        class="pc add-icon"
+        [matMenuTriggerFor]="feildType"
+        (click)="fieldFor = 'array'"
+        *ngIf="!workflow?.itemType"
+        >play_arrow</mat-icon
+      >
+    </span>
+
+    <workflow-entity-editor
+      *ngIf="workflow?.itemType"
+      (removeEvent)="workflow.itemType = null"
+      [workflow]="workflow?.itemType"
+      (workflowChange)="workflow.itemType=$event"
+    ></workflow-entity-editor>
+  </div>
+
+  <!-- <div *ngIf="workflow?.fieldDefinition?.fieldType">
+    <div class="cf-def">
+      {{ workflow?.fieldDefinition?.fieldType }}
+    </div>
+  </div> -->
+  <ng-container *ngIf="isExpand">
+    <div
+      *ngFor="let _workflow of workflow.fields; let index = index"
+      style="margin-left: 10px;"
+    >
+      <workflow-entity-editor
+        [workflow]="_workflow"
+        (workflowChange)="workflow.fields[index]=$event"
+        (removeEvent)="removeField(index)"
+        [showActions]="workflow.logicalType?false:true"
+      ></workflow-entity-editor>
+    </div>
+  </ng-container>
+</div>
+
+<mat-menu #feildType="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="EntityType">EntityType</button>
+  <button mat-menu-item [matMenuTriggerFor]="LogicalType">LogicalType</button>
+</mat-menu>
+
+<mat-menu #EntityType="matMenu">
+  <div>
+    <div style="padding: 10px 0px">
+      <div
+        *ngFor="let item of fieldType['EntityType']"
+        class="cp cf-option"
+        (click)="addField(item)"
+      >
+        {{ item.type | wfdFieldType }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #LogicalType="matMenu">
+  <div style="padding: 10px 0px">
+    <div
+      *ngFor="let item of fieldType['LogicalType']"
+      class="cp cf-option"
+      (click)="addField(item)"
+    >
+      {{ item.logicalType | wfdFieldType }}
+    </div>
+  </div>
+</mat-menu>

@@ -1,0 +1,82 @@
+.wrapper {
+  border-left-width: 15px !important;
+  padding: 0rem 1rem 1rem 0px;
+}
+
+.surround {
+  border: 1px solid var(--color, #6fcf97);
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+.hr-line {
+  border: 0.5px solid var(--color, #6fcf97);
+  width: 25px;
+  height: 0px;
+}
+
+.hr-line.vr {
+  width: 0px;
+  height: 25px;
+  margin-left: 9px;
+}
+
+.btn-color {
+  border-color: var(--color, #6fcf97) !important;
+  color: var(--color, #6fcf97) !important;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.selection {
+  flex-direction: column;
+  align-items: initial !important;
+}
+
+.select {
+  width: 60px;
+  height: 42px;
+  background: var(--color, #6fcf97) !important;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 42px;
+  padding: 0px 5px;
+}
+
+.remove-item {
+  margin-left: auto;
+}
+
+mat-icon {
+  color: #e71d32;
+  height: 16px;
+  width: 16px;
+  font-size: 16px;
+}
+
+.remove {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 6px;
+  color: #e71d32;
+  cursor: pointer;
+}
+
+.change-to-yellow {
+  --color: #f9af41;
+}
+
+.change-to-green {
+  --color: #6fcf97;
+}
+
+::ng-deep .select .mat-select-value {
+  color: #ffffff !important;
+}
+
+::ng-deep .select .mat-select-arrow {
+  color: #ffffff !important;
+}

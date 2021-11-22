@@ -1,0 +1,41 @@
+<div>
+  <div style="display:flex">
+    <mat-form-field class="builder-field">
+      <input
+        matInput
+        placeholder="Enter Entity Name"
+        [(ngModel)]="data.schema.fieldKey"
+        (input)="inputChange()"
+      />
+    </mat-form-field>
+    <img
+      src="assets/Icons/setting.svg"
+      style="margin-left: 10px;"
+      (click)="openSetting()"
+    />
+  </div>
+  <div class="description">
+    <span style="white-space: nowrap;">Add Description:</span>
+    <input
+      type="text"
+      [(ngModel)]="data.schema.description"
+      (input)="inputChange()"
+    />
+  </div>
+
+  <div style="float:right;">
+    <mat-checkbox
+      style="margin-right: 1rem;"
+      class="custom-checkbox"
+      [(ngModel)]="data.schema.required"
+      (change)="inputChange()"
+      >Mandatory</mat-checkbox
+    >
+    <mat-checkbox
+      class="custom-checkbox"
+      [(ngModel)]="data.schema.isRemark"
+      (change)="inputChange()"
+      >Remarks</mat-checkbox
+    >
+  </div>
+</div>

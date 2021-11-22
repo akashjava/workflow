@@ -1,0 +1,4 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ workflow?.name }}</mat-label>
+  <input matInput [placeholder]="workflow?.name" (keypress)="numbersOnly($event);"/>
+</mat-form-field>

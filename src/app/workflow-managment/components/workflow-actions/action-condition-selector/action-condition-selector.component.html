@@ -1,0 +1,44 @@
+<div class="display-content selection" [ngClass]="level % 2 === 0 ? 'change-to-yellow' : 'change-to-green'">
+  <mat-select [(ngModel)]="selectedValue" class="select">
+    <mat-option *ngFor="let item of items" [value]="item">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+  <div class="hr-line vr"></div>
+</div>
+
+<div class="wrapper surround" [ngClass]="level % 2 === 0 ? 'change-to-yellow' : 'change-to-green'">
+  <div class="display-content" *ngFor="let it of iterator" style="margin-top: 1rem">
+    <div class="hr-line"></div>
+    <div class="surround" style="flex: 1">
+      <div *ngIf="iterator.length > 1" class="display-content" style="padding: 1rem 1rem 0rem 1rem; margin-bottom: -1rem;">
+        <div class="remove-item" (click)="removeCondition(it)">
+          <span class="display-content" style="cursor: pointer;">
+            <mat-icon>cancel</mat-icon>
+            <label class="remove">Remove</label>
+          </span>
+        </div>
+      </div>
+      <action-condition *ngIf="it?.for === 'condition'" [fields]="actionFields"  [payloadFromModuleSelector]="payloadFromModuleSelector" [payload]="it?.payload"></action-condition>
+
+      <div *ngIf="it?.for === 'group'" style="padding: 1rem">
+        <action-condition-selector [payloadFromModuleSelector]="payloadFromModuleSelector" [cond]="it?.payload" [level]="level + 1"></action-condition-selector>
+      </div>
+    </div>
+  </div>
+
+  <div class="display-content" style="padding-top: 25px">
+    <div class="hr-line"></div>
+    <button mat-button class="btn btn-color" (click)="addCondition(null)">ADD CONDITION</button>
+  </div>
+
+  <div class="display-content" style="padding-top: 25px">
+    <div class="hr-line"></div>
+    <button mat-button class="btn btn-color" (click)="addGroup(null)">ADD GROUP</button>
+  </div>
+</div>
+
+<!-- <div *ngIf="level === 1" style="padding-top: 20px;">
+  <span class="btn-txt" style="cursor: pointer;" (click)="back()">Back</span>
+  <button mat-button class="btn btn-txt" style="margin-left : 20px" (click)="next()">Next</button>
+</div> -->

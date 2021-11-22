@@ -1,0 +1,253 @@
+<div style="display:flex;flex-direction:column">
+  <div class="s-header">
+    <div>Setting (Step :{{ step }})</div>
+    <button mat-icon-button (click)="close()" style="margin-left: auto">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <div class="layout">
+    <div *ngIf="step == 1">
+      <span>Select Entity :</span>
+      <mat-select placeholder="Select Entity" [(ngModel)]="selectedEntity">
+        <mat-option
+          *ngFor="let entity of entities"
+          (click)="selectEntity(entity)"
+          [value]="entity"
+        >
+          {{ entity.displayValue }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div *ngIf="step == 2">
+      <!-- field format type -->
+      <div class="build_report" style="display: flex;align-items: center">
+        <div class="build_report_title">Value Mode :</div>
+        <mat-radio-group
+          [(ngModel)]="cfDefinition.transformer.type"
+          style="display: flex;justify-content: space-around;width: 65%;"
+          (change)="toggleValue();"
+        >
+          <mat-radio-button [value]="'path'">Single Field</mat-radio-button>
+          <mat-radio-button [value]="'path-joiner'" style="margin-left: 0.5rem;"
+            >Combined Field
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="cfDefinition.transformer.type=='path-joiner'">
+        <!-- Build report -->
+        <div class="build_report" style="display: flex;align-items: center">
+          <!-- title -->
+          <div class="build_report_title">Separator :</div>
+          <mat-select
+            class="sort-by-selector"
+            [(ngModel)]="cfDefinition.transformer.separator"
+            placeholder="Separate By"
+            style="width: 10%;"
+            (selectionChange)="generatePriview()"
+          >
+            <mat-option *ngFor="let icon of separetors" [value]="icon">
+              <strong class="sep-icon">{{ icon }}</strong>
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <!-- report builder -->
+        <div class="report_builder_boxes">
+          <div>
+            <!-- first box -->
+            <div class="report_builder_box">
+              <div class="title" style="padding: 4px">
+                <mat-checkbox
+                  [checked]="
+                  cfDefinition.transformer?.fields?.length > 0 &&
+                  cfDefinition.transformer?.fields?.length == selectedEntity?.fields?.length
+                  "
+                  style="padding-left: 12px;"
+                  (change)="checkAll($event)"
+                  >Select Fields</mat-checkbox
+                >
+              </div>
+              <div
+                class="custom-scroll"
+                style="overflow-y: auto; height: 268px;"
+              >
+                <mat-checkbox
+                  #matcheckbox
+                  *ngFor="let field of selectedEntity?.fields"
+                  [(ngModel)]="field.check"
+                  (change)="checked($event)"
+                  >{{ field?.value }}</mat-checkbox
+                >
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-left: 16px;">
+            <!-- second box -->
+            <div class="report_builder_box">
+              <div class="title">Sort Field Values(Left to Right)</div>
+              <div
+                class="custom-scroll"
+                style="overflow-y: auto; height: 268px; "
+              >
+                <div
+                  *ngFor="
+                    let selection of cfDefinition.transformer?.fields;
+                    let first = first;
+                    let last = last;
+                    let index = index
+                  "
+                  [@fadeIn]
+                  class="selected_list"
+                >
+                  <div
+                    *ngIf="cfDefinition.transformer?.fields?.length > 1"
+                    style="display: flex; flex-direction: column; position: relative;"
+                  >
+                    <mat-icon
+                      *ngIf="!first"
+                      [style.height]="last ? 'auto' : '6px'"
+                      style="cursor: pointer;"
+                      (click)="rearrange(index, index - 1)"
+                      >arrow_drop_up</mat-icon
+                    >
+                    <mat-icon
+                      *ngIf="!last"
+                      style="cursor: pointer;"
+                      (click)="rearrange(index, index + 1)"
+                      >arrow_drop_down</mat-icon
+                    >
+                  </div>
+                  <label
+                    *ngIf="!(index === clickedIndex)"
+                    style="white-space: nowrap;"
+                  >
+                    {{ selection?.value }}
+                  </label>
+                  <span>
+                    <mat-icon (click)="removeElement(index)">clear</mat-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div
+              style="position: absolute; font-size: 14px;color: #8C9BA5;bottom: -5px;"
+            >
+              Priview: {{priview}}.
+            </div>
+        </div>
+      </div>
+      <div class="options field-key" *ngIf="cfDefinition.transformer?.type=='path'">
+        <span
+          *ngFor="let field of selectedEntity?.fields"
+          (click)="cfDefinition.transformer?.fields[0] = field"
+          [style.background-color]="
+          cfDefinition.transformer?.fields[0]?.key == field?.key ? 'whitesmoke' : ''
+          "
+          >{{ field?.value }}</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<div class="actions" *ngIf="step == 1">
+  <span class="action" (click)="close()">Cancel</span>
+  <button
+    mat-button
+    [ngClass]="false ? 'disable-button' : 'active-button'"
+    (click)="next()"
+  >
+    Next
+  </button>
+</div>
+<div class="actions" *ngIf="step == 2">
+  <span class="action" (click)="goBack()">Go back</span>
+  <button
+    mat-button
+    [ngClass]="false ? 'disable-button' : 'active-button'"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>
+<!-- 
+<div class="layout">
+  <div class="layout-header">
+    <div
+      style="flex: 1 0 25%;box-sizing: border-box;border-right: 1px solid #e6e6e6;padding: 10px;"
+    >
+      <span>Select Entity</span>
+    </div>
+    <div
+      style="flex: 1 0 50%;box-sizing: border-box;border-right: 1px solid #e6e6e6;padding: 10px;"
+    >
+      <mat-checkbox
+        *ngIf="metaData.multiple"
+        [disabled]="!selectedEntity"
+        [checked]="
+          metaData?.fields?.length > 0 &&
+          metaData?.fields?.length == selectedEntity?.fields?.length
+        "
+        (change)="checkAll($event)"
+        style="margin-right: 8px;"
+      ></mat-checkbox>
+      <span>Field{{ metaData.multiple ? "s" : "" }} To Display</span>
+    </div>
+    <div
+      style="flex: 1 0 25%;box-sizing: border-box;padding: 10px;text-align: center;"
+      *ngIf="metaData.multiple"
+    >
+      Separator
+    </div>
+  </div>
+  <div class="layout-body">
+    <div class="options">
+      <span
+        *ngFor="let entity of entities"
+        (click)="selectEntity(entity)"
+        [style.background-color]="
+          entity?.value == selectedEntity?.value ? 'whitesmoke' : ''
+        "
+      >
+        {{ entity.displayValue }}
+      </span>
+    </div>
+    <div class="options field-key" *ngIf="metaData.multiple">
+      <mat-checkbox
+        *ngFor="let field of selectedEntity?.fields"
+        [(ngModel)]="field.check"
+        (change)="checked($event)"
+        >{{ field?.value }}</mat-checkbox
+      >
+    </div>
+    <div class="options field-key" *ngIf="!metaData.multiple">
+      <span
+        *ngFor="let field of selectedEntity?.fields"
+        (click)="metaData.field = field.key"
+        [style.background-color]="
+          metaData?.field == field?.key ? 'whitesmoke' : ''
+        "
+        >{{ field?.value }}</span
+      >
+    </div>
+    <div
+      style="flex: 1 0 25%;box-sizing: border-box;"
+      class="field-key"
+      *ngIf="metaData.multiple"
+    >
+      <span
+        *ngFor="let icon of separetors"
+        class="sep-span"
+        [style.background-color]="
+          metaData?.separetor == icon?.value ? 'whitesmoke' : ''
+        "
+      >
+        <span (click)="metaData.separetor = icon.value"
+          ><strong [innerHtml]="icon?.key" class="sep-icon"></strong
+        ></span>
+      </span>
+    </div>
+  </div>
+</div> -->

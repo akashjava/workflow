@@ -1,0 +1,21 @@
+.modal-content-override {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 0%;
+  padding: 0rem;
+}
+.multi-camera {
+  background-color: #eee;
+  padding: 0.8rem 0.8rem;
+  width: 3rem;
+  text-align: center;
+  color: #0086da;
+  border: 1px dashed #0086da;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.img-hor-vert {
+    transform: scaleX(-1);
+    height: 80px;
+    width: 80px
+  }

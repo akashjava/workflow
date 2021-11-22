@@ -1,0 +1,33 @@
+.action {
+    color: #0086da;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+.modal-content-override {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0%;
+    padding: 0rem;
+  }
+  .menu-options {
+    font-size: 14px;
+    color: #202124;
+}
+.menu-options span {
+    cursor: pointer;
+    display: flex;
+    height: 18px;
+    padding: 10px;
+    align-items: center;
+    white-space: nowrap;
+}
+.menu-options span:hover{
+    background-color: whitesmoke;
+}
+.menu-options .mat-icon{
+    font-size: 16px;
+    height: 16px;
+    width: 22px;
+}

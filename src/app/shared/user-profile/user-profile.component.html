@@ -1,0 +1,197 @@
+<div [matMenuTriggerFor]="userMenu" style="margin-right: 1rem;cursor: pointer;" *ngIf="viewType=='web'">
+  <div matTooltip="User Profile" style="display: flex;align-items: center;">
+    <app-avatar [uuid]="(user?.uuid)?user?.uuid:userDetails?.userId" [name]="(user?.name)?user?.name:userDetails?.name"
+      [image]="user?.profileThumbnailString"></app-avatar>
+    <i style="font-size: 0.85rem" class="fas fa-caret-down"></i>
+  </div>
+  <mat-menu #userMenu="matMenu">
+    <div style="overflow: hidden;margin-top: -8px;">
+      <div class="profile-container-desktop">
+        <div *ngIf="!environment?.production">
+          <span class="app-version">{{version }}<i *ngIf="userDetails.isGod" class="fas fa-chevron-right"
+              (click)="showChangelog()" style="cursor:pointer"></i></span>
+          <img class="logo" src="assets/images/Fretron-full-logo.svg" alt="Avatar">
+        </div>
+        <div style="display: flex;padding: 0.5rem 0.8rem;width: 95%">
+          <div class="default-flex-element" style="max-width: 27%;">
+            <img class="profile-pic" src="assets/images/default-profile.png" alt="profile"
+              *ngIf=!(user?.profileThumbnailString)>
+            <img class="profile-pic" src="{{user?.profileThumbnailString}}" alt="profile"
+              *ngIf=(user?.profileThumbnailString)>
+          </div>
+          <div style="padding: 0.5rem;display: grid;gap: 0.5rem" class="default-flex-element">
+            <div style="display: flex">
+              <div class="default-flex-element" style="font-size: 0.75rem;font-weight: 500;color: #152935">
+                {{userDetails?.name}}</div>
+              <div class="default-flex-element"
+                style="font-size: 0.75rem;font-weight: 500;color: #0086DA;text-align: right"><span
+                  style="cursor: pointer;" (click)="logout();">Logout</span></div>
+            </div>
+            <div><span style="font-size: 0.75rem;color:#5A6872">{{userDetails?.email}}</span></div>
+            <div style="font-size: 0.75rem;color:#0086DA;display: flex">
+              <div style="cursor: pointer;" (click)="updateAccountAction()">
+                <mat-icon style="font-size: 15px;height: 15px;width: 15px;">settings</mat-icon>
+              </div>
+              <span style="padding-left: 0.5rem;cursor: pointer;" (click)="updateAccountAction()">Manage Account</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectedOrg">
+          <mat-divider></mat-divider>
+          <div style="padding: 0.5rem 0.8rem;width: 95%">
+            <div style="padding-bottom: 0.3rem"><span style="font-weight: 500;font-size: 10px;color: #5A6872;">CURRENT
+                ORGANIZATION:</span></div>
+            <div style="display: flex;">
+              <div class="default-flex-element" style="max-width: 22%;">
+                <img *ngIf="selectedOrg?.logoThumbnailString != null" class="org_logo"
+                  src="{{selectedOrg?.logoThumbnailString}}">
+                <img *ngIf="selectedOrg?.logoThumbnailString == null" class="org_logo"
+                  src="assets/images/fretron-logo.svg">
+              </div>
+              <div style="padding: 0.5rem;display: grid;gap: 0.5rem" class="default-flex-element">
+                <div class="org_headear">
+                  <span>{{selectedOrg?.organisationName}}</span>
+                </div>
+                <div class="org_id"><span>ID: {{selectedOrg?.orgId}}</span></div>
+              </div>
+              <div style="font-size: 0.75rem;color:#0086DA;max-width: 14%; " class="default-flex-element">
+                <!-- *ngIf="userACL?.accessLevel=='admin' || userACL?.accessLevel=='Admin' || userACL?.accessLevel=='ADMIN'" -->
+                <div style="padding-top:0.8rem">
+                  <mat-icon style="font-size: 25px;height: 25px;width: 25px;cursor: pointer;"
+                    (click)="updateOrgAction()">settings</mat-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </div>
+
+      </div>
+
+      <div>
+        <app-org-switcher [orgId]="userDetails?.orgId"></app-org-switcher>
+      </div>
+
+
+
+      <div class="create_org" (click)="goToAddOrganisation()">
+        <span>CREATE NEW ORGANIZATION</span>
+        <!-- <button style="margin-left: auto"  (click)="logout();" mat-button >Logout</button> -->
+      </div>
+      <!-- <div style="text-align: center" >
+        <button (click)="showCreatePassword()" mat-button >Create Password</button>
+      </div> -->
+    </div>
+  </mat-menu>
+</div>
+
+<!-- Show Changelog Modal Popup starts here -->
+<div>
+  <div *ngIf="isShowChangelog" id="myModal" class="modal" style="z-index: 101;">
+    <!-- Modal content -->
+    <div class="modal-content" style="width:35%; font-size: small; min-width: 16rem;">
+      <span class="close" (click)="isShowChangelog=false">&times;</span>
+      <p style="margin: 0px">Changelogs</p>
+      <!-- <div>
+        <iframe style="width:100%" [src]="changeLogPath"></iframe>         
+      </div> -->
+      <div style="min-height:12rem;max-height:15rem;overflow-y: scroll; overflow-x: hidden">
+        <span style="font-weight:normal">{{changeLogData}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Show Changelog Modal Popup ends here -->
+
+<!-- Show Changelog Modal Popup starts here -->
+<div *ngIf="viewType!='web'">
+
+  <button mat-icon-button (click)="showprofile()">
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <div>
+    <div [style.display]="showProfile?'block':'none'" id="myModal" class="modal" style="z-index:200;overflow: hidden;">
+      <!-- Modal content -->
+      <div class="modal-content" style="width: 87%; margin-top:0.3rem;padding: 0.75rem;">
+
+        <button mat-icon-button class="close-btn" (click)="showProfile=false">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <div style="overflow: hidden;margin-top: -8px;width: 100%">
+          <div class="profile-container-desktop">
+            <!-- <div *ngIf="!environment?.production">
+                        <span class="app-version">{{version }}<i *ngIf="userDetails.isGod" class="fas fa-chevron-right" (click)="showChangelog()" style="cursor:pointer"></i></span>
+                        <img class="logo" src="assets/images/Fretron-full-logo.svg" alt="Avatar"  >
+                    </div> -->
+            <div style="display: flex;padding: 0.5rem 0.8rem;width: 95%">
+              <div class="default-flex-element" style="max-width: 27%;">
+                <img class="profile-pic" src="assets/images/default-profile.png" alt="profile"
+                  *ngIf=!(user?.profileThumbnailString)>
+                <img class="profile-pic" src="{{user?.profileThumbnailString}}" alt="profile"
+                  *ngIf=(user?.profileThumbnailString)>
+              </div>
+              <div style="padding: 0.5rem;display: grid;gap: 0.5rem" class="default-flex-element">
+                <div style="display: flex">
+                  <div class="default-flex-element" style="font-size: 0.75rem;font-weight: 500;color: #152935">
+                    {{userDetails?.name}}</div>
+                  <!-- <div  style="font-size: 0.75rem;font-weight: 500;color: #0086DA;text-align: right"><span style="cursor: pointer;" (click)="logout();">Logout</span></div> -->
+                </div>
+                <div><span style="font-size: 0.75rem;color:#5A6872">{{userDetails?.email}}</span></div>
+                <div style="font-size: 0.75rem;color:#0086DA;display: flex;align-items: center">
+                  <div style="cursor: pointer;" (click)="updateAccountAction()">
+                    <mat-icon style="font-size: 17px;height: 17px;width: 17px;">settings</mat-icon>
+                  </div>
+                  <span style="padding-left: 0.5rem;cursor: pointer;white-space: nowrap;"
+                    (click)="updateAccountAction()">Manage
+                    Account</span>
+                  <div class="default-flex-element"
+                    style="font-size: 0.75rem;font-weight: 500;color: #0086DA;text-align: right"><span
+                      style="cursor: pointer;" (click)="logout();">Logout</span></div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedOrg">
+              <mat-divider></mat-divider>
+              <div style="padding: 0.5rem 0.8rem;width: 95%">
+                <div style="padding-bottom: 0.3rem"><span
+                    style="font-weight: 500;font-size: 10px;color: #5A6872;">CURRENT ORGANIZATION:</span></div>
+                <div style="display: flex;">
+                  <div class="default-flex-element" style="max-width: 22%;">
+                    <img *ngIf="selectedOrg?.logoThumbnailString != null" class="org_logo"
+                      src="{{selectedOrg?.logoThumbnailString}}">
+                    <img *ngIf="selectedOrg?.logoThumbnailString == null" class="org_logo"
+                      src="assets/images/fretron-logo.svg">
+                  </div>
+                  <div style="padding: 0.5rem;display: grid;gap: 0.5rem" class="default-flex-element">
+                    <div class="org_headear">
+                      <span>{{selectedOrg?.organisationName}}</span>
+                    </div>
+                    <div class="org_id"><span>ID: {{selectedOrg?.orgId}}</span></div>
+                  </div>
+                  <div style="font-size: 0.75rem;color:#0086DA;max-width: 14%;" class="default-flex-element">
+                    <!-- *ngIf="userACL?.accessLevel=='admin' || userACL?.accessLevel=='Admin' || userACL?.accessLevel=='ADMIN'" -->
+                    <div style="padding-top:0.8rem">
+                      <button mat-icon-button (click)="updateOrgAction()">
+                        <mat-icon>settings</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+
+          </div>
+
+          <div>
+            <app-org-switcher></app-org-switcher>
+          </div>
+          <div class="create_org" (click)="goToAddOrganisation()">
+            <span>CREATE NEW ORGANIZATION</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

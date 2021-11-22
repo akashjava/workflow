@@ -1,0 +1,373 @@
+<ng-container *ngIf="data">
+  <div class="df">
+    <div class="form-item">
+      <div [ngSwitch]="data.cfs.fieldType">
+        <div *ngSwitchCase="'entity'">
+          <entity-builder-widget
+            [data]="schema"
+            [cfDefinition]="data.cfDefinition"
+            (schemaChange)="schemaChange($event)"
+          ></entity-builder-widget>
+        </div>
+        <div *ngSwitchCase="'address'">
+          <address-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></address-builder-widget>
+        </div>
+        <div *ngSwitchCase="'checkbox'">
+          <checkbox-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></checkbox-builder-widget>
+        </div>
+        <div *ngSwitchCase="'counter'">
+          <counter-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></counter-builder-widget>
+        </div>
+        <div *ngSwitchCase="'email'">
+          <email-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></email-builder-widget>
+        </div>
+        <div *ngSwitchCase="'contactNo'">
+          <contact-no-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></contact-no-builder-widget>
+        </div>
+        <div *ngSwitchCase="'radio-button'">
+          <radio-button-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></radio-button-builder-widget>
+        </div>
+        <div *ngSwitchCase="'yes-no'">
+          <yes-no-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></yes-no-builder-widget>
+        </div>
+        <div *ngSwitchCase="'select'">
+          <select-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></select-builder-widget>
+        </div>
+        <div *ngSwitchCase="'weight'">
+          <weight-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></weight-builder-widget>
+        </div>
+        <div *ngSwitchCase="'text'">
+          <text-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></text-builder-widget>
+        </div>
+        <div *ngSwitchCase="'date'">
+          <date-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></date-builder-widget>
+        </div>
+        <div *ngSwitchCase="'camera'">
+          <camera-builder-widget
+            [data]="schema"
+            (schemaChange)="schemaChange($event)"
+          ></camera-builder-widget>
+        </div>
+
+        <div *ngSwitchCase="'textarea'">
+          <div style="display:flex">
+            <mat-form-field style="width:95%">
+              <input
+                matInput
+                placeholder="Field Name"
+                [(ngModel)]="data.cfs.field_name"
+                required
+                (input)="inputChange()"
+              />
+              <mat-hint
+                align="start"
+                [innerHTML]="'Please Enter Field Name'"
+              ></mat-hint>
+            </mat-form-field>
+            <mat-form-field style="width:95%;margin-left: 0.5rem;">
+              <input
+                matInput
+                placeholder="Field Type"
+                [(ngModel)]="data.cfs.value"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <div style="display:flex">
+            <mat-form-field style="width:95%;">
+              <input
+                matInput
+                placeholder="label"
+                [(ngModel)]="data.cfs.label"
+                (input)="inputChange()"
+              />
+            </mat-form-field>
+            <mat-form-field style="width:95%;margin-left: 0.5rem;">
+              <input
+                matInput
+                placeholder="Placeholder"
+                [(ngModel)]="data.cfs.placeholder"
+                (input)="inputChange()"
+              />
+            </mat-form-field>
+          </div>
+          <mat-form-field style="width:95%;margin-left: 0.5rem;">
+            <input
+              matInput
+              placeholder="Description"
+              [(ngModel)]="data.cfs.description"
+              (input)="inputChange()"
+            />
+          </mat-form-field>
+          <div style="display:flex;">
+            <mat-checkbox
+              [(ngModel)]="data.cfs.required"
+              class="custom-checkbox default-flex-element"
+              (change)="inputChange()"
+              >Required</mat-checkbox
+            >
+            <mat-checkbox
+              [(ngModel)]="data.cfs.notitle"
+              class="custom-checkbox default-flex-element"
+              (change)="inputChange()"
+              >title</mat-checkbox
+            >
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'file'">
+          <div style="display:flex">
+            <mat-form-field style="width:95%">
+              <input
+                matInput
+                placeholder="Field Name"
+                [(ngModel)]="data.cfs.field_name"
+                required
+                (input)="inputChange()"
+              />
+              <mat-hint
+                align="start"
+                [innerHTML]="'Please Enter Field Name'"
+              ></mat-hint>
+            </mat-form-field>
+            <mat-form-field style="width:95%;margin-left: 0.5rem;">
+              <input
+                matInput
+                placeholder="Field Type"
+                [(ngModel)]="data.cfs.value"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-checkbox
+              [(ngModel)]="data.cfs.multiple"
+              class="custom-checkbox"
+              (change)="inputChange()"
+              >Multiple</mat-checkbox
+            >
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'array'">
+          <div style="display:flex">
+            <mat-form-field style="width:95%">
+              <input
+                matInput
+                placeholder="Field Name"
+                [(ngModel)]="data.cfs.field_name"
+                required
+              />
+              <mat-hint
+                align="start"
+                [innerHTML]="'Please Enter Field Name'"
+              ></mat-hint>
+            </mat-form-field>
+            <mat-form-field style="width:95%;margin-left: 0.5rem;">
+              <input
+                matInput
+                placeholder="Field Type"
+                [(ngModel)]="data.cfs.value"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="instruct" *ngSwitchDefault>Select a Form Component</div>
+      </div>
+
+      <div class="df" style="margin-top: 27px;">
+        <div
+          matRipple
+          class="tab-btn cp pc"
+          [ngClass]="{ 'clicked-tab': currentTabSelected === 1 }"
+          (click)="currentTabSelected = 1"
+        >
+          Restricted Use
+        </div>
+        <div
+          matRipple
+          class="tab-btn cp pc"
+          [ngClass]="{ 'clicked-tab': currentTabSelected === 2 }"
+          (click)="currentTabSelected = 2"
+        >
+          Mandotory
+        </div>
+        <div
+          matRipple
+          class="tab-btn cp pc"
+          [ngClass]="{ 'clicked-tab': currentTabSelected === 3 }"
+          (click)="currentTabSelected = 3"
+        >
+          Remark
+        </div>
+      </div>
+
+      <div
+        [ngStyle]="{ display: currentTabSelected === -1 ? 'none' : 'flex' }"
+        class="main-container"
+      >
+        <!-- restricted use -->
+        <div
+          class="tab-container"
+          [ngClass]="{
+            'slide-tab': currentTabSelected === 2 || currentTabSelected === 3
+          }"
+        >
+          <span class="sf dt" style="display: block; padding: 8px 0px;"
+            >Only following users/users with role will be able to edit or delete
+            this custom field</span
+          >
+          <!-- users -->
+          <mat-form-field class="role-input">
+            <mat-chip-list #userList aria-label="User selection">
+              <mat-chip *ngFor="let user of selectedUsers">
+                {{ user?.name }}
+                <mat-icon matChipRemove (click)="removeUser(user?.uuid)"
+                  >cancel</mat-icon
+                >
+              </mat-chip>
+              <input
+                matInput
+                [matAutocomplete]="userAutoComplete"
+                [matChipInputFor]="userList"
+                placeholder="Select User"
+                (keyup)="searchUser($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #userAutoComplete="matAutocomplete">
+              <mat-option
+                *ngFor="let user of users$ | async"
+                [value]="user?.name"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-checkbox
+                  [checked]="
+                    data?.cfDefinition?.allowedUsers
+                      | isSelectionMade: user?.uuid
+                  "
+                  (change)="userSelected(user)"
+                  (click)="$event.stopPropagation()"
+                  >{{ user?.name }}</mat-checkbox
+                >
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <!-- roles -->
+          <mat-form-field class="role-input">
+            <mat-chip-list #roleList aria-label="User selection">
+              <mat-chip *ngFor="let role of selectedRoles">
+                {{ role?.name }}
+                <mat-icon matChipRemove (click)="removeRole(role?.uuid)"
+                  >cancel</mat-icon
+                >
+              </mat-chip>
+              <input
+                matInput
+                [matAutocomplete]="roleAutoComplete"
+                placeholder="Select Role"
+                [matChipInputFor]="roleList"
+                (keyup)="searchRole($event)"
+              />
+            </mat-chip-list>
+            <mat-autocomplete #roleAutoComplete="matAutocomplete">
+              <mat-option
+                *ngFor="let role of roles$ | async"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-checkbox
+                  [checked]="
+                    data?.cfDefinition?.allowedRoles
+                      | isSelectionMade: role?.uuid
+                  "
+                  (change)="selectedRole(role)"
+                  (click)="$event.stopPropagation()"
+                  >{{ role?.name }}</mat-checkbox
+                >
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <!-- mandatory section -->
+        <div
+          class="tab-container"
+          [ngClass]="{ 'slide-tab': currentTabSelected === 3 }"
+        >
+          <mat-checkbox
+            class="mf dt"
+            [(ngModel)]="data.cfs.required"
+            (change)="changeMandatoryField(data)"
+            >Mark this custom field mandatory</mat-checkbox
+          >
+          <div
+            *ngIf="mandateFields && data.cfs.required"
+            style="margin-left: 23px; margin-top: 8px;"
+          >
+            <mat-radio-group
+              class="mf dt df"
+              style="flex-direction: column;"
+              [(ngModel)]="data.cfs.accessType"
+              (change)="changeMandatoryField(data)"
+            >
+              <mat-radio-button checked [value]="'_mandatory_create'"
+                >Mandatory On Create</mat-radio-button
+              >
+              <mat-radio-button [value]="'_mandatory_resolve'"
+                >Mandatory On Resolve</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <!-- mandatory remark -->
+        <div class="tab-container">
+          <mat-checkbox
+            [(ngModel)]="data.cfs.isRemark"
+            (change)="valueChanged.emit(data)"
+            class="mf dt"
+            >Add remark</mat-checkbox
+          >
+        </div>
+      </div>
+    </div>
+    <mat-icon class="remove-icon" (click)="removeFormItem()" *ngIf="!isEdit"
+      >delete</mat-icon
+    >
+  </div>
+</ng-container>

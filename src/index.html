@@ -6,6 +6,105 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+  <script>
+    function traverseObject(jsonObj, path) {
+      let paths = [];
+      if (jsonObj !== null && typeof jsonObj == "object") {
+        Object.entries(jsonObj).forEach(([key, value]) => {
+          let p = `${path ? path + "." : ""}${key}`;
+          if (jsonObj !== null && typeof value !== "object") {
+            paths.push({ key: key, path: p });
+          }
+          paths = [...paths, ...traverseObject(value, p)];
+        });
+      } else {
+      }
+      return paths;
+    }
+    function traverseWorkflow(jsonObj, path) {
+      let paths = [];
+      if (jsonObj !== null && typeof jsonObj == "object") {
+        if (jsonObj.type == "array") {
+          // console.log(jsonObj)
+          let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+          paths = [...paths, ...traverseWorkflow(jsonObj.itemType, p)];
+        }
+        if (jsonObj.fields.length > 0) {
+          Object.entries(jsonObj.fields).forEach(([key, value]) => {
+            let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+            paths = [...paths, ...traverseWorkflow(value, p)];
+          });
+        } else {
+          let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+          // key is either an array index or object key
+          if (
+            jsonObj !== null &&
+            jsonObj.fields.length == 0 &&
+            jsonObj.type !== "array"
+          ) {
+            paths.push({
+              key: jsonObj.name,
+              path: p,
+              type: jsonObj.type,
+              conditionTypes: []
+            });
+          }
+        }
+      } else {
+        // console.log(jsonObj)
+        // jsonObj is a number or string
+      }
+      return paths;
+    }
+    function traverseWorkflowFields(jsonObj, path) {
+      let paths = [];
+      if (jsonObj !== null && typeof jsonObj == "object") {
+        if (jsonObj.type == "array" && !jsonObj.logicalType) {
+          // console.log(jsonObj)
+          let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+          paths = [...paths, ...traverseWorkflowFields(jsonObj.itemType, p)];
+        } else if (jsonObj.fields.length > 0 && !jsonObj.logicalType) {
+          Object.entries(jsonObj.fields).forEach(([key, value]) => {
+            let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+            paths = [...paths, ...traverseWorkflowFields(value, p)];
+          });
+        } else if (!jsonObj.logicalType) {
+          let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+          // key is either an array index or object key
+          if (
+            jsonObj !== null &&
+            jsonObj.fields.length == 0 &&
+            jsonObj.type !== "array"
+          ) {
+            paths.push({ key: jsonObj.name, path: p, workflow: jsonObj });
+          }
+        } else {
+          let p = `${path ? path + "/" : ""}${jsonObj.name}`;
+          // key is either an array index or object key
+          paths.push({ key: jsonObj.name, path: p, workflow: jsonObj });
+        }
+      } else {
+        // console.log(jsonObj)
+        // jsonObj is a number or string
+      }
+      return paths;
+    }
+    TraverseObjects = {
+      traverseObject: function(jsonObj, path) {
+        return traverseObject(jsonObj, path);
+      },
+      traverseWorkflow: function(jsonObj, path) {
+        return traverseWorkflow(jsonObj, path);
+      },
+      traverseWorkflowFields: function(jsonObj, path) {
+        return traverseWorkflowFields(jsonObj, path);
+      }
+    };
+  </script>
 </head>
 <body>
   <app-root></app-root>

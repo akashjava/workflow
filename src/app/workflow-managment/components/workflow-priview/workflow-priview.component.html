@@ -1,0 +1,148 @@
+<div
+  [ngClass]="workflow?.type == 'object' ? 'obj-con' : 'arr-con'"
+  (drop)="drop($event)"
+  (dragover)="allowDrop($event); $event.stopPropagation()"
+  [style.border]="!showActions?'none':''"
+>
+  <div class="df ai" style="padding:10px" *ngIf="showActions">
+    <span
+      class="mf dt"
+      *ngIf="workflow?.type == 'object' || workflow?.type == 'array'"
+      >{{ workflow.name }}</span
+    >
+    <span
+      class="sf gt"
+      *ngIf="workflow?.type == 'object' || workflow?.type == 'array'"
+      >({{ workflow.type | wfdFieldType }})</span
+    >
+    <span class="sf gt" *ngIf="workflow.logicalType"
+      >({{ workflow.logicalType | wfdFieldType }})</span
+    >
+    <!-- <span *ngIf="workflow?.type=='object'">{{workflow?.name}}</span> -->
+    <button mat-icon-button style="margin-left: auto;">
+      <mat-icon class="pc lf-18" (click)="addEntity(null, true)">edit</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="isChild">
+      <mat-icon class="pc lf-18" (click)="delete.emit()">delete</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      *ngIf="workflow?.type == 'object' || workflow?.type == 'array'"
+      (click)="isExpand = !isExpand"
+    >
+      <mat-icon class="pc lf-24" [ngClass]="isExpand ? 'rotate0' : 'rotate180'">
+        keyboard_arrow_down
+      </mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isExpand">
+    <ng-container
+      *ngIf="workflow?.type && !workflow?.logicalType; else elseTemplate"
+    >
+      <ng-container [ngSwitch]="workflow?.type">
+        <div
+          *ngSwitchCase="'boolean'"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+          >
+          <boolean-widget [workflow]="workflow"></boolean-widget>
+        </div>
+        <div
+          *ngSwitchCase="'decimal'"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+        >
+        <decimal-widget [workflow]="workflow"></decimal-widget>
+        </div>
+        <div
+          *ngSwitchCase="'number'"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+        >
+        <number-widget [workflow]="workflow"></number-widget>
+        </div>
+        <div
+          *ngSwitchCase="'string'"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+        >
+        <string-widget [workflow]="workflow"></string-widget>
+        </div>
+        <div
+          *ngSwitchCase="'object'"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+        >
+          <div
+            *ngFor="let _workflow of workflow.fields; let index = index"
+            style="margin-left: 10px;"
+          >
+            <workflow-priview
+              [workflow]="_workflow"
+              (workflowChange)="workflow.fields[index] = $event"
+              (delete)="deleteWorkflow(index)"
+            ></workflow-priview>
+          </div>
+        </div>
+        <div
+          *ngSwitchCase="'array'"
+          (drop)="drop($event)"
+          (dragover)="allowDrop($event); $event.stopPropagation()"
+        >
+          <div style="margin-left: 10px;">
+            <workflow-priview
+              [workflow]="workflow.itemType"
+              (workflowChange)="workflow.itemType = $event"
+              *ngIf="workflow.itemType"
+              (delete)="workflow.itemType = null"
+            ></workflow-priview>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <ng-container [ngSwitch]="workflow?.logicalType">
+        <div *ngSwitchCase="'Address'">
+          <address-widget [workflow]="workflow"></address-widget>
+        </div>
+        <div *ngSwitchCase="'Checkbox'">
+          <checkbox-widget [workflow]="workflow"></checkbox-widget>
+        </div>
+        <div *ngSwitchCase="'Counter'">
+          <counter-widget [workflow]="workflow"></counter-widget>
+        </div>
+        <div *ngSwitchCase="'Weight'">
+          <weight-widget [workflow]="workflow"></weight-widget>
+        </div>
+        <div *ngSwitchCase="'Text'">
+          <string-widget [workflow]="workflow"></string-widget>
+        </div>
+        <div *ngSwitchCase="'Number'">
+          <number-widget [workflow]="workflow"></number-widget>
+        </div>
+        <div *ngSwitchCase="'Contact No'">
+          <contact-widget [workflow]="workflow"></contact-widget>
+        </div>
+        <div *ngSwitchCase="'Email'">
+          <email-widget [workflow]="workflow"></email-widget>
+        </div>
+        <div *ngSwitchCase="'Date'">
+          <date-widget [workflow]="workflow"></date-widget>
+        </div>
+        <div *ngSwitchCase="'Date & Time'">
+          <date-time-widget [workflow]="workflow"></date-time-widget>
+        </div>
+        <div *ngSwitchCase="'Single Choice'">
+          <radio-button-widget [workflow]="workflow"></radio-button-widget>
+        </div>
+        <div *ngSwitchCase="'Yes/No'">
+          <yes-no-widget [workflow]="workflow"></yes-no-widget>
+        </div>
+        <div *ngSwitchCase="'Drop down (Single Selection)'">
+          <single-selection-widget [workflow]="workflow"></single-selection-widget>
+        </div>
+        <div *ngSwitchCase="'Drop down (Multiple Selection)'">
+          <multi-selection-widget [workflow]="workflow"></multi-selection-widget>
+        </div>
+        <div *ngSwitchCase="'Camera'">
+          <camera-widget [workflow]="workflow"></camera-widget>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

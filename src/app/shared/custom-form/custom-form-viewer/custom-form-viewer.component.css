@@ -1,0 +1,12 @@
+.widget {
+  margin-top: 0.2rem;
+}
+
+.container {
+  background: #ffffff;
+}
+
+.custom-css {
+  border: none;
+  background: rgba(245, 251, 255, 0.59);
+}

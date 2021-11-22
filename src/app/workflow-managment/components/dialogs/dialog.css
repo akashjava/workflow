@@ -1,0 +1,110 @@
+.dialog-header {
+    padding: 6px 16px;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+  }
+  .dialog-header .title {
+    line-height: 18px;
+    color: #152935;
+  }
+  .dialog-body {
+    min-height: 10rem;
+    max-height: 75vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 16px 16px 0px;
+    width: 50vw;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    justify-content: space-between;
+  }
+  .actions .action {
+    display: block;
+    cursor: pointer;
+    color: #0086da;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .actions .active-button {
+    background-color: #0086da;
+    color: white;
+    font-size: 16px;
+    line-height: 35px;
+    pointer-events: all;
+    min-width: 6rem;
+    max-width: fit-content;
+  }
+  .actions .disable-button {
+    background-color: rgb(218, 213, 213);
+    color: #152935;
+    font-size: 16px;
+    line-height: 35px;
+    pointer-events: none;
+    min-width: 6rem;
+    max-width: fit-content;
+  }
+  ::ng-deep .mat-dialog-container {
+    padding: 0px !important;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .mat-icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    line-height: 32px;
+    border-radius: 50%;
+  }
+  .mat-icon-button:hover {
+    background-color: rgb(218, 213, 213);
+  }
+  .custom-checkbox >>> .mat-checkbox-inner-container {
+    width: 1rem;
+    height: 1rem;
+  }
+  .w-100{
+      display: flex;
+      align-items: center;
+      width: 100%;
+  }
+  .w-50{
+      display: flex;
+      align-items: center;
+      width: 50%;
+  }
+  .w-35{
+      display: flex;
+      align-items: center;
+      width: 35%;
+  }
+  .w-45{
+      display: flex;
+      align-items: center;
+      width: 45%;
+  }
+  .w-25{
+      display: flex;
+      align-items: center;
+      width: 25%;
+  }
+  .w-75{
+      display: flex;
+      align-items: center;
+      width: 75%;
+  }
+  .fw{
+      flex-wrap: wrap;
+  }
+  @media (max-width: 650px) {
+    .dialog-body {
+      padding: 10px;
+      width: 95vw;
+    }
+  }
+  

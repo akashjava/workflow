@@ -1,0 +1,16 @@
+<div class="container">
+  <span style="font-size: 0.7rem;color: #ea7070;" *ngIf="required"
+    >*(Required)</span
+  >
+  <span class="block">{{ fieldKey }}</span>
+
+  <ng-container
+    *ngIf="fieldValue?.startsWith('https' || 'https'); else textView"
+  >
+    <a class="not-excced-txt" href="{{ fieldValue}}" target="_blank">{{ fieldValue }}</a>
+  </ng-container>
+
+  <ng-template #textView>
+    <span> {{ fieldValue }}</span>
+  </ng-template>
+</div>

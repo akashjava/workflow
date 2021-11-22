@@ -1,0 +1,26 @@
+
+<div class="wrapper">
+  <div class="con">
+    <mat-card *ngFor="let action of actions" class="ai" style="padding: 5px 10px;margin-bottom: 3px;display: flex;">
+      <div>
+        <span>{{ action?.name }}</span>
+      </div>
+      <div class="df fd" style="margin-left: auto;">
+        <button mat-icon-button>
+          <mat-icon class="pc">
+            edit
+          </mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon class="pc">
+            delete
+          </mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+   
+  <button mat-mini-fab  matTooltip="Add Actions" class="add" (click)="addAction()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

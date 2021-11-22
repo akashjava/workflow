@@ -1,0 +1,81 @@
+.wrapper{
+  width: 17.5rem;
+  max-height: 16rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0rem;
+}
+.wrapper .member-search {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    width: 100%;
+    height: 35px;
+  }
+  
+  .wrapper .member-search i {
+    left: 0.75rem;
+    position: absolute;
+    margin-top: -0.9rem;
+    font-size: 0.85rem;
+  }
+  
+  .wrapper .memberSearch {
+    padding: 0.33rem 2rem 0.4rem 0.5rem;
+    display: inline-block;
+    border: 1.5px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 2rem;
+    width: 16.9rem;
+    margin-left: 0.3rem;
+    font-size: 12px;
+    position: relative;
+  }
+  
+  .wrapper .memberSearch:focus {
+    outline: none;
+    border: 1.5px solid #03a9f4;
+    box-shadow: 0px 0px 5px #03a9f4;
+  }
+  .wrapper .members-container{
+    max-height: 13.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .wrapper .members-item{
+    padding: 0.4rem 0rem;
+    color: #ccc;
+  }
+  .wrapper .members-item:hover{
+    background-color: #F0F3F6 !important;
+    cursor: pointer;
+  }
+  .wrapper .members-item .members-item-Text{
+    font-size: 12px;
+    color: #152935;
+    white-space: nowrap;
+  }
+  .wrapper .members-item .members-item-subText{
+    font-size: 10px;
+    color:  #838C92;
+    white-space: nowrap;
+  }
+
+
+  .add-button{
+    background-color: rgb(0, 134, 218);
+    color: #ffffff;
+    border-radius: 50%;
+  }
+
+  .add-tag-button{
+    color: #88A8C8;
+    border: 1px solid;
+    padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+    border-radius: 1rem;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-top: 0.2rem;
+  }

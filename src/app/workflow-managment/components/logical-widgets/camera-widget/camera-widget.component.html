@@ -1,0 +1,28 @@
+ 
+  <div style="flex-wrap: wrap;" class="df ai">
+    <div style="width: 100px;padding: 0.3rem;position: relative;" *ngFor="let item of multiImage">
+      <!-- <mat-icon (click)="remove(item.uuid)" class="remove">clear</mat-icon> -->
+      <img class="img-hor-vert " src="{{ item}}" />
+      <!-- <img class="img-hor-vert " src="{{ 'data:image/jpeg;base64,' + item?.previewString }}" /> -->
+      <!-- <mat-form-field style="width:100%">
+        <input matInput placeholder="Document Name" [(ngModel)]="item.name" (focusout)="updateDocName(item.uuid, item.name)" />
+      </mat-form-field> -->
+    </div>
+    <div style="padding: 0.3rem">
+      <div class="multi-camera" (click)="showWebcam = true">
+        <!-- <mat-spinner *ngIf="isSpinner" mode="indeterminate" style="position: absolute;" class="custom-spinner" [strokeWidth]="5" [diameter]="70"></mat-spinner> -->
+        <mat-icon style="font-size:32px;height:32px;width:32px;">camera_alt</mat-icon>
+      </div>
+    </div>
+  </div>
+<div *ngIf="showWebcam" class="mycustomDialog" style="overflow: hidden;">
+<div class="modal-content modal-content-override" style="border-radius: 0px;text-align: center;">
+  <div style="text-align: center;padding: 1rem;">
+    <mat-icon style="float:right" (click)="showWebcam = false">clear</mat-icon>
+    <webcam [mirrorImage]="'always'" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"></webcam>
+  </div>
+
+  <br />
+  <button style="width: fit-content" (click)="triggerSnapshot()">Click to Take A Snapshot</button>
+</div>
+</div>

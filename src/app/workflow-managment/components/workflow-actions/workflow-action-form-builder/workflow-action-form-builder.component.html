@@ -1,0 +1,65 @@
+<div class="dialog-header">
+  <span class="title">Define Actions Form</span>
+  <button mat-icon-button (click)="close()" style="margin-left: auto">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<div class="dialog-body df">
+  <div
+    class="dragArea custom-scroll"
+    (drop)="drop($event)"
+    (dragover)="allowDrop($event); $event.stopPropagation()"
+    #cnt
+  >
+    <mat-card #ftem
+      *ngFor="let item of fields;let index=index"
+      style="padding: 10px;"
+      [style.width]="(cWidth && item?.layout?.width)?((item?.layout?.width * cWidth)-30 + 'px'):''"
+      cdkDragBoundary=".dragArea"
+      cdkDrag
+      (cdkDragEnded)="drop2($event,index)"
+    >
+      <workflow-priview
+        [workflow]="item.workflow"
+        [allowDropped]="false"
+        ></workflow-priview>
+        <!-- [showActions]="false" -->
+    </mat-card>
+  </div>
+  <div
+    style="width: 20%;height: 80vh; overflow-y: auto; overflow-x: hidden;"
+    class="custom-scroll"
+  >
+    <div
+      *ngFor="let field of formFields"
+      class="f-Field"
+      draggable="true"
+      (dragstart)="drag($event, field)"
+    >
+      <div style="display: grid">
+        <span
+          style="font-size: 14px;line-height: 20px;font-weight: 500;"
+          class="not-excced-txt"
+        >
+          {{ field?.key }}</span
+        >
+        <span
+          style="font-size: 12px;line-height: 18px;color: #5A6872;"
+          class="not-excced-txt"
+          >{{ field?.path }}</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <span class="action" (click)="close()">Cancel</span>
+  <button
+    mat-button
+    [ngClass]="false ? 'disable-button' : 'active-button'"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>

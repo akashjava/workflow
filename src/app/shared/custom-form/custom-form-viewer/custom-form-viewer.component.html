@@ -1,0 +1,68 @@
+<div [ngSwitch]="schema?.fieldType || schema?.schema?.fieldType">
+  <div *ngSwitchCase="'object'" [ngStyle]="schema?.layout || ''">
+    <div *ngFor="let item of properties">
+      <app-custom-form-viewer
+        [setSchema]="(schema?.properties)[item]"
+        [from]="from"
+        [mode]="mode"
+        [path]="path ? path + '.' + item : path + item"
+      ></app-custom-form-viewer>
+    </div>
+  </div>
+  <div *ngSwitchCase="'array'" [ngStyle]="schema?.layout || ''">
+    <div *ngFor="let item of schema?.properties; let index = index">
+      <app-custom-form-viewer [setSchema]="item" [from]="from" [mode]="mode" [path]="index"></app-custom-form-viewer>
+    </div>
+  </div>
+  <div *ngSwitchCase="'entity'" class="widget">
+    <entity-viewer-widget [schema]="schema?.schema?schema?.schema:schema" [uuid]="uuid" [from]="from" [mode]="mode" [path]="path"></entity-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'address'" class="widget">
+    <address-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></address-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'checkbox'" class="widget">
+    <checkbox-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></checkbox-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'counter'" class="widget">
+    <counter-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></counter-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'email'" class="widget">
+    <email-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></email-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'contactNo'" class="widget">
+    <contact-no-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></contact-no-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'radio-button'" class="widget">
+    <radio-button-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></radio-button-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'yes-no'" class="widget">
+    <yes-no-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></yes-no-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'select'" class="widget">
+    <select-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></select-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'weight'" class="widget">
+    <weight-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></weight-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'text'" class="widget">
+    <text-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></text-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'date'" class="widget">
+    <date-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></date-viewer-widget>
+  </div>
+  <div *ngSwitchCase="'camera'" class="widget">
+    <app-webcamera [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></app-webcamera>
+  </div>
+
+  <div *ngSwitchCase="'textarea'" class="widget">
+    <custom-textarea-widget [options]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></custom-textarea-widget>
+  </div>
+
+  <div *ngSwitchCase="'file'">
+    <custom-file-widget [options]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></custom-file-widget>
+  </div>
+
+  <div *ngSwitchDefault>
+    <text-viewer-widget [schema]="schema?.schema?schema.schema:schema" [from]="from" [mode]="mode" [path]="path"></text-viewer-widget>
+  </div>
+</div>

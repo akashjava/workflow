@@ -1,0 +1,45 @@
+.cf-option {
+    height: 32px;
+    color: gray;
+    font-size: 14px;
+    width: 100%;
+    line-height: 32px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    background: #ffffff;
+    border-radius: 2px;
+  }
+  
+  .cf-option:hover {
+    background: #0086da;
+    color: #ffffff;
+  }
+  .mat-icon-button{
+    padding: 0;
+    min-width: 0;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    line-height: 32px;
+    border-radius: 50%;
+}
+.mat-icon-button:hover{
+    background-color: whitesmoke;
+}
+.stepper{
+  display: block;
+}
+.stepper >>> .mat-horizontal-stepper-header{
+  height: 50px;
+}
+.stepper >>> .mat-horizontal-content-container {
+  padding: 0 0px 24px 24px;
+}
+.tabs{
+  display: block;
+}
+.tabs >>> .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+  color:#084CB4;
+  background-color: white;
+  opacity: 1;
+}

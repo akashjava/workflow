@@ -1,0 +1,15 @@
+<div class="df ai jc" style="flex-wrap: wrap;">
+  <div style="flex: 3;">
+    <decimal-widget [workflow]="workflow.fields[0]"></decimal-widget>
+  </div>
+  <div style="flex: 1; margin-left: 10px;">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ workflow.fields[1].name }}</mat-label>
+      <mat-select placeholder="Unit" name="item">
+        <mat-option *ngFor="let item of workflow.fields[1].options">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

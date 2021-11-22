@@ -1,0 +1,97 @@
+.container {
+  margin: 10px 0px 10px 10px;
+}
+
+.body {
+  min-height: 32px;
+  padding: 0px 5px;
+  box-sizing: border-box;
+}
+
+.body:hover {
+  background: #d5d5d591;
+}
+
+input {
+  width: 120px;
+  outline: none;
+  font-size: 14px;
+  font-family: apic-font;
+  height: 20px;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0 5px;
+  margin-right: 5px;
+}
+
+.add-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.add-icon:hover{
+  background-color: whitesmoke;
+}
+
+
+.btn {
+  font-weight: normal;
+  color: #ffffff;
+  background-color: #0086da;
+}
+
+.menu-rapper {
+  padding: 10px;
+  width: 260px;
+}
+
+.cf-container {
+  margin-top: 10px;
+  border-top: 1px solid #80808021;
+}
+
+.cf-option {
+  height: 32px;
+  color: gray;
+  font-size: 14px;
+  width: 100%;
+  line-height: 32px;
+  box-sizing: border-box;
+  padding: 0px 10px;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+.cf-option:hover {
+  background: #0086da;
+  color: #ffffff;
+}
+
+.cf-def {
+  height: 20px;
+  font-size: 12px;
+  margin-left: 25px;
+  color: #0086da;
+  text-align: center;
+  border: 1px solid;
+  line-height: 20px;
+  padding: 3px;
+  width: 80px;
+  border-radius: 2px;
+}
+.mat-icon-button {
+  padding: 0;
+  min-width: 0;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  line-height: 32px;
+  border-radius: 50%;
+}
+.mat-icon-button:hover {
+  background-color: whitesmoke;
+}
+
+.lf-24 {
+    font-size: 24px;
+  }

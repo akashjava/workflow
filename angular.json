@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/common.css"
             ],
             "scripts": []
           },
@@ -88,7 +89,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/common.css"
             ],
             "scripts": []
           }
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "app-workflow"
+    }
+  },
+  "defaultProject": "app-workflow",
+  "cli": {
+    "analytics": "eb8bcf92-bbf5-40e4-b42a-2d95ec836fa6"
+  }
 }

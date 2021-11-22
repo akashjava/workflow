@@ -1,0 +1,69 @@
+<div class="dialog-header">
+  <span class="title">Define Actions</span>
+  <button mat-icon-button (click)="close()" style="margin-left: auto">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+<div class="dialog-body custom-scroll">
+  <div class="df" style="align-items: baseline;">
+    <span style="flex: 1;">Action Name</span>
+    <div style="flex: 3;">
+      <mat-form-field appearance="outline">
+        <mat-label>Action Name</mat-label>
+        <input matInput placeholder="Action Name" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="df" style="align-items: baseline;">
+    <span style="flex: 1;">Conditions</span>
+    <div
+      style="flex: 3;padding: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;"
+    >
+      <action-condition-selector
+        [actionFields]="actionFields"
+      ></action-condition-selector>
+    </div>
+  </div>
+  <div class="df" style="align-items: baseline;">
+    <span style="flex: 1;">Form Layout</span>
+    <div
+      class="defineForm df ai"
+      (click)="openFormDialog()"
+    >
+      <span>Define Form</span>
+      <span style="margin-left: auto;" class="df ai">
+      <button mat-icon-button  (click)="$event.stopPropagation()">
+        <mat-icon class="pc">
+          edit
+        </mat-icon>
+      </button>
+      <button mat-icon-button  (click)="$event.stopPropagation()">
+        <mat-icon class="pc">
+          delete
+        </mat-icon>
+      </button>
+    </span>
+    </div>
+  </div>
+  <div class="df" style="align-items: baseline;">
+    <span style="flex: 1;">Submit Button Name</span>
+    <div style="flex: 3;">
+      <mat-form-field appearance="outline">
+        <mat-label>Button Name</mat-label>
+        <input matInput placeholder="Button Name" />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <span class="action" (click)="close()">Cancel</span>
+  <button
+    mat-button
+    [ngClass]="false ? 'disable-button' : 'active-button'"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>

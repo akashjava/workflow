@@ -1,0 +1,26 @@
+<div>
+  <div
+    *ngFor="
+      let data of properties;
+      trackBy: trackByFn;
+      let first = first;
+      let last = last;
+      let index = index
+    "
+    style="display: flex"
+  >
+    <div>
+      <custom-field-editor
+        [data]="data"
+        (deleteCustomField)="removeFormItem(index)"
+        (valueChanged)="schemaChange($event, index)"
+      ></custom-field-editor>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;" *ngIf="!isEdit">
+    <custom-field-picker
+      (selection)="selectedField($event)"
+    ></custom-field-picker>
+  </div>
+</div>

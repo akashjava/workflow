@@ -1,0 +1,149 @@
+<div class="wrapper display-content">
+  <div class="block">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Select Field Type"
+        (keyup)="searchFileds($event.target.value)"
+        [ngModel]="selctedFieldName"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="optionSelected($event)"
+      >
+        <mat-option *ngFor="let field of fieldsAfterSearch" [value]="field" style="padding: 10px 16px;box-sizing: border-box;border-bottom: 1px solid #ccc;">
+          <div style="display: grid">
+            <span style="font-size: 14px;line-height: 20px;font-weight: 500;">
+              {{ field?.key }}</span
+            >
+            <span
+              style="font-size: 12px;line-height: 18px;color: #5A6872;"
+              >{{ field?.path }}</span
+            >
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="block">
+    <mat-form-field>
+      <mat-select
+        placeholder="Select Condition Type"
+        [(ngModel)]="selectedCondition"
+        (selectionChange)="conditionChange()"
+      >
+        <mat-option
+          *ngFor="let item of selectedField?.conditionTypes"
+          [value]="item"
+        >
+          {{ item }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="block"
+    *ngIf="selectedCondition === 'in' || selectedCondition === 'not in'"
+  >
+    <mat-form-field>
+      <input
+        #search
+        matInput
+        placeholder="Select Value"
+        (click)="suggest()"
+        [(ngModel)]="displaySelectedValue"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let field of suggestedFields$ | async"
+          [value]="field"
+        >
+          <mat-checkbox
+            (change)="inRange(field)"
+            (click)="$event.stopPropagation()"
+            >{{ field }}</mat-checkbox
+          >
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="block"
+    *ngIf="
+      selectedCondition === 'in range' || selectedCondition === 'not in range'
+    "
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Enter first value"
+        [(ngModel)]="firstValueInRange"
+      />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="block"
+    *ngIf="
+      selectedCondition === 'in range' || selectedCondition === 'not in range'
+    "
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Enter second value"
+        [(ngModel)]="secondValueInRange"
+        (keyup)="secondValue($event.target.value)"
+      />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="block"
+    *ngIf="selectedCondition === 'equals' || selectedCondition === 'not equals'"
+  >
+    <mat-form-field>
+      <input
+        #search
+        matInput
+        placeholder="Select Value"
+        (click)="suggest()"
+        [(ngModel)]="selectedValue"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let field of suggestedFields$ | async"
+          [value]="field"
+        >
+          {{ field }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="block"
+    *ngIf="
+      selectedCondition === 'in date range' ||
+      selectedCondition === 'not in date range'
+    "
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Select Value"
+        [(ngModel)]="selectedValue"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        [selectMode]="'range'"
+      />
+      <owl-date-time #dt2></owl-date-time>
+    </mat-form-field>
+  </div>
+</div>

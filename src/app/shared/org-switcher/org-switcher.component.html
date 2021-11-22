@@ -1,0 +1,22 @@
+<div style="position:relative;margin: 0.5rem 0.8rem;display: flex;align-items: center;">
+  <i *ngIf="!isSpinner" class="fa fa-search " aria-hidden="true"
+    style="right: 44px;position: absolute;font-size: 14px;color:  #5a687280;"></i>
+  <input myAutofocus class="expand-search" [(ngModel)]="searchText" placeholder="Search"
+    (ngModelChange)="searchOrganisation(searchText)" (click)="$event.stopPropagation()" />
+  <mat-spinner *ngIf="isSpinner" mode="indeterminate" style="position: absolute;right: 45px;" [strokeWidth]="3"
+    [diameter]="20"></mat-spinner>
+    <mat-slide-toggle
+    class="toggel-blue" 
+    (click)="$event.stopPropagation()"
+    [color]="'accent'"
+    [(ngModel)]="isBoth"
+    >
+</mat-slide-toggle>
+</div>
+<!-- [style.max-height]="viewType == 'web' ? '17rem' : '9rem'" -->
+<div #scroll class="custom-scroll" [style.height]="viewFrom === 'add-organistion' ? '125px' : 'calc(100vh - 385px)'" style="overflow-y: auto;overflow-x: hidden;">
+  <div *ngFor="let org of organisations$ | async as organisation" (click)="switchOrganization(org?.uuid)"
+    [ngClass]="currentOrgId === org?.uuid ? 'disabled' : 'org-list-element'">
+    <app-org-switcher-item-pr [element]="org"></app-org-switcher-item-pr>
+  </div>
+</div>

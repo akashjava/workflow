@@ -1,0 +1,49 @@
+      
+
+<div [matMenuTriggerFor]="driver" style="cursor: pointer;display: flex" *ngIf="view"  >
+  <span style="width: fit-content;color: rgb(0, 134, 218);margin-top: 0.2rem;display: block;" >
+    {{view}}
+  </span>
+  <!-- <button style="min-width: 1.50rem;" mat-icon-button > -->
+    <!-- <mat-icon  style="color: rgb(143, 191, 221);">keyboard_arrow_down</mat-icon> -->
+  <!-- </button> -->
+</div>
+
+
+<button style="min-width: 1.50rem;" mat-icon-button [matMenuTriggerFor]="driver" *ngIf="!view" >
+    <mat-icon style="color: rgb(0, 134, 218);">keyboard_arrow_down</mat-icon>
+</button> 
+
+
+ <mat-menu [overlapTrigger]="false" #driver="matMenu">
+   <div>
+      <div class="wrapper">
+          <div class="member-search">
+            <input type="text" class="memberSearch" [(ngModel)]="searchKey" size="35" placeholder="Search Driver By Name" (input)="search()" (click)="$event.stopPropagation()"/>
+            <button *ngIf="!searchKey && !isLoading" matSuffix mat-icon-button style="right: 36px; top: -5px;"><mat-icon style="color : #8C9BA5; font-size: 20px;">search</mat-icon></button>
+            <mat-spinner *ngIf="isLoading" mode="indeterminate" style="position: absolute;right: 11px;top: 5px;" [strokeWidth]="3" [diameter]="20"></mat-spinner>
+          </div>
+          <div class="members-container  custom-scroll">
+            <div class="members-item" *ngFor="let item of drivers" (click)="chooseDriver(item)">
+              <div style="padding: 0rem 0rem 0rem 0.7rem;display: flex;flex-direction: row" >
+                <div style="display: flex;flex-direction: column;" class="default-flex-element">
+                  <div style="display: flex">
+                    <span  class="members-item-Text" [innerHTML]="sharedService.getMachedString((item?.name)?item?.name:'NA',searchKey)"></span>&nbsp;
+                    <span class="members-item-subText" style="margin-left: 0.1rem">(<span class="members-item-subText" >{{item.mobileNumber}}</span>)</span>
+                  </div>
+                  <span class="members-item-subText" style="margin-top: 0.2rem">{{item.address?item.address:'N/A'}}</span>
+                </div>
+                <div  style="flex:1 1 11%" *ngIf="selfIds.includes(item.uuid)">
+                  <mat-icon style="color:#75CF0B">check_circle</mat-icon>
+                </div>
+              </div>
+              
+            </div>
+        
+          </div>
+        </div>
+   </div>
+</mat-menu>
+
+
+

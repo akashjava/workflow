@@ -1,0 +1,42 @@
+<div class="dialog-header">
+  <span class="title">Define Width</span>
+  <button mat-icon-button (click)="close()" style="margin-left: auto">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<div class="dialog-body df">
+  <div class="dragArea" #cnt>
+    <mat-card
+      style="padding: 10px;"
+      [style.width]="(cWidth && selectedWidth)?((selectedWidth * cWidth)-20 + 'px'):''"
+    >
+      <workflow-priview
+        [workflow]="data"
+        [showActions]="false"
+      ></workflow-priview>
+    </mat-card>
+  </div>
+  <div
+    style="width: 10%;border: 1px solid ; overflow-y: auto; overflow-x: hidden;"
+    class="custom-scroll"
+  >
+    <div *ngFor="let width of widths" class="f-Field" (click)="selectedWidth=width"
+    [style.background-color]="(selectedWidth===width)?'aliceblue':''"
+    >
+      <div style="font-size: 24px;line-height: 20px;font-weight: 500;">
+        {{ width }} X
+      </div>
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <span class="action" (click)="close()">Cancel</span>
+  <button
+    mat-button
+    [ngClass]="false ? 'disable-button' : 'active-button'"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>

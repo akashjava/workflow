@@ -1,0 +1,95 @@
+<!-- <button mat-button (click)="display()">display</button> -->
+
+<button mat-button (click)="openDialog()">layout</button>
+
+<mat-tab-group mat-stretch-tabs class="tabs">
+  <mat-tab label="Entity Editor">
+    <mat-horizontal-stepper #stepper class="stepper">
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Entity Builder</ng-template>
+        <div style="margin-right: 10px;overflow: auto;height: 70vh;">
+          <workflow-entity-editor
+            [workflow]="workflow"
+            (workflowChange)="workflow = $event"
+            [isChild]="false"
+
+          ></workflow-entity-editor>
+        </div>
+        <div>
+          <button mat-button matStepperNext (click)="setJSON()">Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>JSON Viewer</ng-template>
+        <ngx-ace-editor
+          [mode]="'json'"
+          [options]="{ wrap: true }"
+          [(text)]="text"
+          style="font-family: monospace; font-size: 12px !important; height: calc(100vh - 16rem) !important; "
+        >
+        </ngx-ace-editor>
+        <div>
+          <button mat-button matStepperPrevious (click)="setJSON()">Back</button>
+          <button mat-button matStepperNext (click)="refresh()">Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Entity Layout</ng-template>
+        <div class="df">
+          <div style="overflow: auto;height: 70vh;flex:1">
+            <workflow-priview
+              [workflow]="workflow"
+              (workflowChange)="workflow = $event"
+              [isChild]="false"
+            ></workflow-priview>
+          </div>
+          <button
+            mat-icon-button
+            (click)="showAddField = !showAddField"
+            matTooltip="Add Feild"
+          >
+            <mat-icon class="pc" [ngClass]="showAddField ? 'rotate0' : 'rotate180'"
+              >keyboard_arrow_right
+            </mat-icon>
+          </button>
+          <div
+            style="overflow: auto;height: 70vh;width: fit-content;padding:10px"
+            *ngIf="showAddField"
+          >
+            <span>Entity Type</span>
+            <div style="padding: 10px 0px">
+              <div
+                *ngFor="let item of fieldType['EntityType']"
+                class="cp cf-option"
+                draggable="true"
+                (dragstart)="drag($event, item)"
+              >
+                {{ item.type | wfdFieldType }}
+              </div>
+            </div>
+            <span>Logical Type</span>
+            <div style="padding: 10px 0px">
+              <div
+                *ngFor="let item of fieldType['LogicalType']"
+                class="cp cf-option"
+                draggable="true"
+                (dragstart)="drag($event, item)"
+              >
+                {{ item.logicalType | wfdFieldType }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious (click)="setJSON()">Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-tab>
+  <mat-tab label="Entity Actions">
+    <workflow-action-container [workflow]="workflow"></workflow-action-container>
+  </mat-tab>
+  <mat-tab label="Entity View"> Report Layout </mat-tab>
+</mat-tab-group>
+

@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ workflow?.name }}</mat-label>
+  <mat-select [placeholder]="workflow?.name" name="item" multiple="true">
+    <mat-option *ngFor="let item of workflow?.options">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

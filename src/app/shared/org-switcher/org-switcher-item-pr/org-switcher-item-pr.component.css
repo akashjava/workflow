@@ -1,0 +1,26 @@
+.org_logo{
+    height: 3.5rem;
+    width: 3.2rem;
+    border: 1px solid #8C9BA5;
+    border-radius: 5px;
+    padding: 3px
+}
+
+.org_headear{
+    font-weight: 500;
+    font-size: 14px;
+    color: #152935;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    padding: 0rem 0rem 0.3rem 0rem;
+}
+.org_id{
+    font-size: 12px;
+    color: #5A6872;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block
+}

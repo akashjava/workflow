@@ -1,0 +1,30 @@
+.wrapper{
+    position: relative;
+    height: calc(100vh - 94px);
+}
+.con{
+    padding: 10px 16px;
+    height: calc(100vh - 116px);
+    overflow: auto;
+}
+
+
+.mat-icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    line-height: 32px;
+    border-radius: 50%;
+  }
+  .mat-icon-button:hover {
+    background-color: whitesmoke;
+  }
+  
+  .add {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    background-color:#0086DA;
+  }

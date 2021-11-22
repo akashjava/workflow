@@ -1,0 +1,7 @@
+
+
+<div class="container" [class.disabled]="isDisabled" >
+    <div class="background-box" (click)="toggle()"  [style.background-color]="value?'#B2CFF2':'#D4D4D4'" >
+        <div class="switch-button" [ngClass]="value?'on-switch':'off-switch'" >{{value?'ON':'OFF'}}</div>
+    </div>
+</div>

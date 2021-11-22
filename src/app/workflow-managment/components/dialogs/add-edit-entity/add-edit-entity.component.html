@@ -1,0 +1,90 @@
+<div class="dialog-header">
+  <span class="title" *ngIf="workflow.type"
+    >Entity Info ({{ workflow.type | wfdFieldType }})</span
+  >
+  <span class="title" *ngIf="workflow.logicalType"
+    >Entity Info ({{ workflow.logicalType | wfdFieldType }})</span
+  >
+  <button mat-icon-button (click)="close()" style="margin-left: auto">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+<div class="dialog-body">
+  <div>
+    <mat-form-field appearance="outline" style="width: 90%;">
+      <mat-label>Entity Name</mat-label>
+      <input matInput placeholder="Entity Name" [(ngModel)]="workflow.name" />
+    </mat-form-field>
+  </div>
+  <div *ngIf="workflow.type=='array'">
+    <span class="sf pc df ai"
+      >TYPE :
+      <mat-icon
+        class="pc add-icon"
+        [matMenuTriggerFor]="feildType"
+        (click)="fieldFor = 'array'"
+        >play_arrow</mat-icon
+      >
+      <span *ngIf="workflow?.itemType?.type"
+        >({{ workflow?.itemType?.type | wfdFieldType }})</span
+      >
+      <span *ngIf="workflow?.itemType?.logicalType"
+        >({{ workflow?.itemType?.logicalType | wfdFieldType }})</span
+      >
+    </span>
+    <mat-form-field appearance="outline" *ngIf="workflow.itemType" style="width: 90%;">
+      <mat-label>Entity Name</mat-label>
+      <input matInput placeholder="Entity Name" [(ngModel)]="itemType.name" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="actions">
+  <span class="action" (click)="close()">Cancel</span>
+  <button
+    *ngIf="workflow.type == 'array'"
+    mat-button
+    [ngClass]="
+      !workflow.name || !workflow.itemType || !itemType.name
+        ? 'disable-button'
+        : 'active-button'
+    "
+    (click)="save()"
+  >
+    Save
+  </button>
+  <button
+    *ngIf="workflow.type !== 'array'"
+    mat-button
+    [ngClass]="!workflow.name ? 'disable-button' : 'active-button'"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>
+<mat-menu #feildType="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="EntityType">EntityType</button>
+  <button mat-menu-item [matMenuTriggerFor]="LogicalType">LogicalType</button>
+</mat-menu>
+<mat-menu #EntityType="matMenu">
+  <div style="padding: 10px 0px">
+    <div
+      *ngFor="let item of fieldType['EntityType']"
+      class="cp cf-option"
+      (click)="addArrayType(item)"
+    >
+      {{ item.type | wfdFieldType }}
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #LogicalType="matMenu">
+  <div style="padding: 10px 0px">
+    <div
+      *ngFor="let item of fieldType['LogicalType']"
+      class="cp cf-option"
+      (click)="addArrayType(item)"
+    >
+      {{ item.logicalType | wfdFieldType}}
+    </div>
+  </div>
+</mat-menu>

@@ -1,0 +1,79 @@
+<div class="filter" [matMenuTriggerFor]="type">
+  <span class="filter-text" *ngIf="selectedValue?.length==0">Select Vehicle Type</span>
+  <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+  <div class="selected-filter" *ngIf="multiple">
+    <div class="chip" *ngFor="let selected of selectedValue">
+      <span>{{ selected?.name }}</span>
+      <mat-icon class="clear" (click)="$event.stopPropagation(); selectedType(selected)" >clear</mat-icon>
+    </div>
+  </div>
+  <div class="selected-filter" *ngIf="!multiple">
+    <div style="padding: 6px 0px;">
+      <span>{{ selectedValue[0]?.name }}</span>
+    </div>
+  </div>
+</div>
+<mat-menu  #type="matMenu" class="container">
+  <div>
+    <div class="search-box" (click)="$event.stopPropagation()">
+      <input
+        #search
+        type="text"
+        placeholder="search here"
+        [(ngModel)]="text"
+        autofocus="autofocus"
+      />
+      <mat-icon *ngIf="!text">search</mat-icon>
+      <mat-icon *ngIf="text" (click)="text=''" style="cursor: pointer;"
+        >clear</mat-icon
+      >
+    </div>
+    <div style="display: flex;padding: 5px;border-bottom: 1px solid #e6e6e6;" (click)="$event.stopPropagation()">
+      <div class="f-select">
+        <mat-select placeholder="Catagory" [(ngModel)]="catagory" name="item" (selectionChange)="getAllTypes(text)">
+            <mat-option  [value]="null">
+              --NONE--
+            </mat-option>
+          <mat-option *ngFor="let item of catagories$ | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="f-select" style="margin: 0px 5px;">
+        <mat-select placeholder="Capacity" [(ngModel)]="capacity" name="item" (selectionChange)="getAllTypes(text)">
+          <mat-option  [value]="null">
+            --NONE--
+          </mat-option>
+          <mat-option *ngFor="let item of capacities$ | async" [value]="item">
+            {{item}} MT
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="f-select">
+        <mat-select placeholder="Dimention" [(ngModel)]="dimention" name="item" (selectionChange)="getAllTypes(text)">
+          <mat-option  [value]="null">
+            --NONE--
+          </mat-option>
+          <mat-option *ngFor="let item of dimentions$ | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div style="display: flex;padding: 5px 8px;border-bottom: 1px solid #e6e6e6;" (click)="$event.stopPropagation()" *ngIf="multiple">
+      <div (click)="$event.stopPropagation()" >
+        <mat-checkbox [checked]="selectedValue?.length>0 && displayVehicleTypes?.length==selectedValue?.length" (change)="selectAll($event);">Select All</mat-checkbox>
+      </div>
+    </div>
+    <div style="height: 20rem;overflow:auto">
+      <ng-container *ngFor="let option of displayVehicleTypes" >
+        <div (click)="$event.stopPropagation()"  class="filter-and-count" *ngIf="multiple">
+          <mat-checkbox [checked]="isInclude(option.uuid)" (change)="selectedType(option);">{{option.name}}</mat-checkbox>
+        </div>
+        <div *ngIf="!multiple" (click)="select(option)" class="filter-and-count" style="color: #656a6d">
+          {{option.name}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</mat-menu>
